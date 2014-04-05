@@ -128,12 +128,16 @@
 
                 var dateMin= null
                 $scope.$watch('dateMin', function (date) {
-                    dateMin= new Date(date.getFullYear(), date.getMonth(), date.getDate())
+                    if (date) {
+                        dateMin= new Date(date.getFullYear(), date.getMonth(), date.getDate())
+                    }
                 })
 
                 var dateMax= null
                 $scope.$watch('dateMax', function (date) {
-                    dateMax= new Date(date.getFullYear(), date.getMonth(), date.getDate())
+                    if (date) {
+                        dateMax= new Date(date.getFullYear(), date.getMonth(), date.getDate())
+                    }
                 })
 
                 $scope.prevMonth= function () {
