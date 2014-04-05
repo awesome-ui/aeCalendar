@@ -126,6 +126,16 @@
                     }
                 })
 
+                var dateMin= null
+                $scope.$watch('dateMin', function (date) {
+                    dateMin= new Date(date.getFullYear(), date.getMonth(), date.getDate())
+                })
+
+                var dateMax= null
+                $scope.$watch('dateMax', function (date) {
+                    dateMax= new Date(date.getFullYear(), date.getMonth(), date.getDate())
+                })
+
                 $scope.prevMonth= function () {
                     $scope.dateView= new Date($scope.dateView)
                     $scope.dateView.setMonth(
@@ -166,14 +176,14 @@
                         && $scope.isValidMax(date)
                 }
                 $scope.isValidMin= function (date) {
-                    if ($scope.dateMin) {
-                        return date.getTime() >= $scope.dateMin.getTime()
+                    if (dateMin) {
+                        return date.getTime() >= dateMin.getTime()
                     }
                     return true
                 }
                 $scope.isValidMax= function (date) {
-                    if ($scope.dateMax) {
-                        return date.getTime() <= $scope.dateMax.getTime()
+                    if (dateMax) {
+                        return date.getTime() <= dateMax.getTime()
                     }
                     return true
                 }
@@ -183,22 +193,22 @@
                         || $scope.isBoundMax(date)
                 }
                 $scope.isBoundMin= function (date) {
-                    if ($scope.dateMin) {
-                        return date.getTime() == $scope.dateMin.getTime()
+                    if (dateMin) {
+                        return date.getTime() == dateMin.getTime()
                     }
                 }
                 $scope.isBoundMax= function (date) {
-                    if ($scope.dateMax) {
-                        return date.getTime() == $scope.dateMax.getTime()
+                    if (dateMax) {
+                        return date.getTime() == dateMax.getTime()
                     }
                 }
 
                 $scope.setDate= function (date) {
-                    if ($scope.dateMin && date < $scope.dateMin) {
-                        date= $scope.dateMin
+                    if (dateMin && date < dateMin) {
+                        date= dateMin
                     }
-                    if ($scope.dateMax && date > $scope.dateMax) {
-                        date= $scope.dateMax
+                    if (dateMax && date > dateMax) {
+                        date= dateMax
                     }
                     $scope.date= date
                 }
