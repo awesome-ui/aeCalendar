@@ -4,7 +4,9 @@
     "devDependencies": {
         "bower": "latest",
         "gulp": "latest",
-        "gulp-ngmin": "latest"
+        "gulp-ngmin": "latest",
+        "gulp-uglify": "latest",
+        "gulp-rename": "latest"
     },
 
     "license": "MIT"
