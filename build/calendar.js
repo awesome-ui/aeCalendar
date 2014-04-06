@@ -81,8 +81,6 @@
                     return weeks
                 },
 
-
-
                 getMonthLength: function (date) {
                     var monthLength= [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][date.getMonth()]
                     if (1 == date.getMonth()) { // а если високосный?
@@ -93,7 +91,16 @@
                     return monthLength
                 },
 
-
+                isDateInMonth: function (date, monthDate) {
+                    var monthDate= new Date(monthDate.getFullYear(), monthDate.getMonth(), 1)
+                    if (date >= monthDate) {
+                        monthDate.setMonth( monthDate.getMonth() +1 )
+                        if (date < monthDate) {
+                            return true
+                        }
+                    }
+                    return false
+                },
 
             }}
         })
@@ -142,16 +149,30 @@
 
                 $scope.prevMonth= function () {
                     $scope.dateView= new Date($scope.dateView)
+                    if ($scope.isPrevMonthDisabled()) {
+                        return
+                    }
                     $scope.dateView.setMonth(
                         $scope.dateView.getMonth() -1
                     )
                 }
 
+                $scope.isPrevMonthDisabled= function () {
+                    return (dateMin && aeCalendar.isDateInMonth(dateMin, $scope.dateView)) || false
+                }
+
                 $scope.nextMonth= function () {
                     $scope.dateView= new Date($scope.dateView)
+                    if ($scope.isNextMonthDisabled()) {
+                        return
+                    }
                     $scope.dateView.setMonth(
                         $scope.dateView.getMonth() +1
                     )
+                }
+
+                $scope.isNextMonthDisabled= function () {
+                    return (dateMax && aeCalendar.isDateInMonth(dateMax, $scope.dateView)) || false
                 }
 
                 $scope.getCalendarClass= function () {
