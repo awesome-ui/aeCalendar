@@ -1,5 +1,9 @@
 {
     "name": "aeCalendar", "version": "0.0.5",
 
+    "devDependencies": {
+        "bower": "latest"
+    },
+
     "license": "MIT"
 }
