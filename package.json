@@ -2,7 +2,8 @@
     "name": "aeCalendar", "version": "0.0.5",
 
     "devDependencies": {
-        "bower": "latest"
+        "bower": "latest",
+        "gulp": "latest"
     },
 
     "license": "MIT"
