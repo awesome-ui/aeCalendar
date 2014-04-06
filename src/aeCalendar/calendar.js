@@ -149,7 +149,7 @@
 
                 $scope.prevMonth= function () {
                     $scope.dateView= new Date($scope.dateView)
-                    if (dateMin && aeCalendar.isDateInMonth(dateMin, $scope.dateView)) {
+                    if ($scope.isPrevMonthDisabled()) {
                         return
                     }
                     $scope.dateView.setMonth(
@@ -157,14 +157,22 @@
                     )
                 }
 
+                $scope.isPrevMonthDisabled= function () {
+                    return (dateMin && aeCalendar.isDateInMonth(dateMin, $scope.dateView)) || false
+                }
+
                 $scope.nextMonth= function () {
                     $scope.dateView= new Date($scope.dateView)
-                    if (dateMax && aeCalendar.isDateInMonth(dateMax, $scope.dateView)) {
+                    if ($scope.isNextMonthDisabled()) {
                         return
                     }
                     $scope.dateView.setMonth(
                         $scope.dateView.getMonth() +1
                     )
+                }
+
+                $scope.isNextMonthDisabled= function () {
+                    return (dateMax && aeCalendar.isDateInMonth(dateMax, $scope.dateView)) || false
                 }
 
                 $scope.getCalendarClass= function () {
