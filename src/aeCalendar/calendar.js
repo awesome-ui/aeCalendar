@@ -19,6 +19,7 @@
                     calendarCaption: 'calendar-caption',
                     calendarDayOfPrevMonth: 'prev',
                     calendarDayOfNextMonth: 'next',
+                    calendarDayCurrent: 'current',
                     calendarDayActive: 'active',
                     calendarDayValid: 'valid',
                     calendarDayBound: 'bound',
@@ -125,10 +126,13 @@
 
             controller: function ($scope) {
 
+                var dateCur= null
                 $scope.$watch('dateView', function (date) {
                     if (!date) {
                         $scope.dateView= new Date()
                     } else {
+                        dateCur= new Date
+                        dateCur= new Date(dateCur.getFullYear(), dateCur.getMonth(), dateCur.getDate())
                         $scope.aMonth= aeCalendar.getMonth(date)
                     }
                 })
@@ -187,7 +191,12 @@
                     cls[aeCalendar.config.classes.calendarDayValid]= $scope.isValid(date)
                     cls[aeCalendar.config.classes.calendarDayBound]= $scope.isBound(date)
                     cls[aeCalendar.config.classes.calendarDayActive]= $scope.isActive(date)
+                    cls[aeCalendar.config.classes.calendarDayCurrent]= $scope.isCurrent(date)
                     return cls
+                }
+
+                $scope.isCurrent= function (date) {
+                    return dateCur.getTime() == date.getTime()
                 }
 
                 $scope.isActive= function (date) {
