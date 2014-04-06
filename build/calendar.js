@@ -19,6 +19,7 @@
                     calendarCaption: 'calendar-caption',
                     calendarDayOfPrevMonth: 'prev',
                     calendarDayOfNextMonth: 'next',
+                    calendarDayCurrent: 'current',
                     calendarDayActive: 'active',
                     calendarDayValid: 'valid',
                     calendarDayBound: 'bound',
@@ -102,6 +103,22 @@
                     return false
                 },
 
+                isDateLtMonth: function (date, monthDate) {
+                    var monthDate= new Date(monthDate.getFullYear(), monthDate.getMonth(), 1)
+                    if (date < monthDate) {
+                        return true
+                    }
+                    return false
+                },
+
+                isDateGtMonth: function (date, monthDate) {
+                    var monthDate= new Date(monthDate.getFullYear(), monthDate.getMonth() +1, 1)
+                    if (date >= monthDate) {
+                        return true
+                    }
+                    return false
+                },
+
             }}
         })
 
@@ -125,10 +142,13 @@
 
             controller: function ($scope) {
 
+                var dateCur= null
                 $scope.$watch('dateView', function (date) {
                     if (!date) {
                         $scope.dateView= new Date()
                     } else {
+                        dateCur= new Date
+                        dateCur= new Date(dateCur.getFullYear(), dateCur.getMonth(), dateCur.getDate())
                         $scope.aMonth= aeCalendar.getMonth(date)
                     }
                 })
@@ -158,7 +178,9 @@
                 }
 
                 $scope.isPrevMonthDisabled= function () {
-                    return (dateMin && aeCalendar.isDateInMonth(dateMin, $scope.dateView)) || false
+                    return (dateMin && (
+                        aeCalendar.isDateInMonth(dateMin, $scope.dateView) || aeCalendar.isDateGtMonth(dateMin, $scope.dateView)
+                    )) || false
                 }
 
                 $scope.nextMonth= function () {
@@ -172,7 +194,9 @@
                 }
 
                 $scope.isNextMonthDisabled= function () {
-                    return (dateMax && aeCalendar.isDateInMonth(dateMax, $scope.dateView)) || false
+                    return (dateMax && (
+                        aeCalendar.isDateInMonth(dateMax, $scope.dateView) || aeCalendar.isDateLtMonth(dateMax, $scope.dateView)
+                    )) || false
                 }
 
                 $scope.getCalendarClass= function () {
@@ -187,7 +211,12 @@
                     cls[aeCalendar.config.classes.calendarDayValid]= $scope.isValid(date)
                     cls[aeCalendar.config.classes.calendarDayBound]= $scope.isBound(date)
                     cls[aeCalendar.config.classes.calendarDayActive]= $scope.isActive(date)
+                    cls[aeCalendar.config.classes.calendarDayCurrent]= $scope.isCurrent(date)
                     return cls
+                }
+
+                $scope.isCurrent= function (date) {
+                    return dateCur.getTime() == date.getTime()
                 }
 
                 $scope.isActive= function (date) {

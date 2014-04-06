@@ -1,5 +1,5 @@
 {
-    "name": "aeCalendar", "version": "0.0.7",
+    "name": "aeCalendar", "version": "0.0.9",
 
     "dependencies": {
         "angular": "latest",
