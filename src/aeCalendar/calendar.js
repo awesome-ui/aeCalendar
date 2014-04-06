@@ -81,8 +81,6 @@
                     return weeks
                 },
 
-
-
                 getMonthLength: function (date) {
                     var monthLength= [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][date.getMonth()]
                     if (1 == date.getMonth()) { // а если високосный?
@@ -93,7 +91,16 @@
                     return monthLength
                 },
 
-
+                isDateInMonth: function (date, monthDate) {
+                    var monthDate= new Date(monthDate.getFullYear(), monthDate.getMonth(), 1)
+                    if (date >= monthDate) {
+                        monthDate.setMonth( monthDate.getMonth() +1 )
+                        if (date < monthDate) {
+                            return true
+                        }
+                    }
+                    return false
+                },
 
             }}
         })
@@ -142,6 +149,9 @@
 
                 $scope.prevMonth= function () {
                     $scope.dateView= new Date($scope.dateView)
+                    if (dateMin && aeCalendar.isDateInMonth(dateMin, $scope.dateView)) {
+                        return
+                    }
                     $scope.dateView.setMonth(
                         $scope.dateView.getMonth() -1
                     )
@@ -149,6 +159,9 @@
 
                 $scope.nextMonth= function () {
                     $scope.dateView= new Date($scope.dateView)
+                    if (dateMax && aeCalendar.isDateInMonth(dateMax, $scope.dateView)) {
+                        return
+                    }
                     $scope.dateView.setMonth(
                         $scope.dateView.getMonth() +1
                     )
