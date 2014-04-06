@@ -3,7 +3,8 @@
 
     "devDependencies": {
         "bower": "latest",
-        "gulp": "latest"
+        "gulp": "latest",
+        "gulp-ngmin": "latest"
     },
 
     "license": "MIT"
